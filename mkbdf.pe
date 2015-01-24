@@ -1,0 +1,7 @@
+#!/usr/local/bin/fontforge
+
+Open($1)
+Generate($1:r + ".bdf")
+Close()
+New()
+

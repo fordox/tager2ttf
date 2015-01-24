@@ -1,0 +1,13 @@
+#!/usr/local/bin/fontforge
+
+New()
+Import($1,1)
+#Save("one.sfd")
+SelectAll()
+AutoTrace()
+#Save("one.sfd")
+SelectAll()
+ScaleToEm(1024)
+
+Generate($1:r + ".ttf")
+
