@@ -1,4 +1,4 @@
-# tagerpng2fon
+# tagerpng2ttf
 
 PL:
 
