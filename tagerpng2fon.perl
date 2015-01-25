@@ -8,8 +8,8 @@ use File::Basename;
 
 my $howmanyargvs = @ARGV;
 
-print "This is tagerpng2fon, Version 0.2: ";
-#print "(cc) 2014 Kamil J. Dudek\n";
+print "This is tagerpng2fon, Version 0.3: ";
+#print "(cc) 2015 Kamil J. Dudek\n";
 
 if ( $howmanyargvs != 2)
 {
@@ -38,15 +38,13 @@ if ( ! (-d "./TTF") )
 
 
 my $img = GD::Image->newFromPng( $ARGV[ 0 ] );
-my $paper = $img->getPixel(3059,3059);
-my ($r,$g,$b)  = $img->rgb($paper);
 my $fontname = basename($ARGV[0]);
 $fontname =~ s/^(.*)(\.)(.*)$/$1/;
 my $realfontname = $fontname . " " . $ARGV[1];
 my $outputname = './FD/'.$realfontname.'.fd';
 open(my $filehandler, '>', $outputname) or die "Problem with: '$outputname' $!";
 print $filehandler "facename TAG ", $realfontname, "\n";
-print $filehandler "copyright 1988-1994 InfoService\n";
+print $filehandler "copyright 1988-1996 InfoService\n";
 print $filehandler "\nheight 48\nascent 11\n\ncharset 255\n\nchar 0\nwidth 36\n";
 print "Creating font $realfontname...   ";
 my $fjump = 0;
@@ -67,7 +65,7 @@ if ($ARGV[ 1 ] eq "Underline")
 	$fjump = 3;
 }
 
-my $alignY = 287 + (360 * $fjump);
+my $alignY = 0 + (360 * $fjump);
 my $characterNO = 32;
 my @alphabetsoup;
 my @inputfont;
@@ -109,7 +107,6 @@ for (my $row = 0; $row < 4; $row = $row + 1 )
 	$alignY = $alignY + 72;
 }
 
-#print $inputfont[65];
 my @outputfont;
 $outputfont[256] = "";
 
@@ -118,14 +115,6 @@ $characterNO = 0;
 
 for (my $column = 0; $column < 256; $column = $column + 1 )
 {
-	#for( my $i = 0; $i < 48; $i = $i + 1 )
-	#{
-	#	for( my $j = 0; $j < 36; $j = $j + 1 )
-	#	{
-	#			print $alphabetsoup[$characterNO][$i][$j];
-	#	}
-	#	print "\n";
-	#}
 	print $filehandler $inputfont[$characterNO];
 	$characterNO += 1;
 	if ($characterNO < 256)
@@ -147,7 +136,4 @@ chomp($bidoof);
 system("fontforge -script ./mkttf.pe \"./$bidoof\" 2> /dev/null");
 system("rm -f ./FON/*.bdf");
 system("mv ./FON/*.ttf ./TTF");
-my $here = `pwd`;
-chomp($here);
-#print "Successfully created $here/FON/$realfontname.fon\n";
 print " Done.\n";
