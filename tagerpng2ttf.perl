@@ -8,7 +8,7 @@ use File::Basename;
 
 my $howmanyargvs = @ARGV;
 
-print "This is tagerpng2fon, Version 0.3: ";
+print "This is tagerpng2ttf, Version 0.4: ";
 #print "(cc) 2015 Kamil J. Dudek\n";
 
 if ( $howmanyargvs != 2)
